@@ -49,6 +49,7 @@ input {
 }
 
 .todo {
+    display: block;
     background: #fff;
     width: 700px;
     margin: 70px auto;
@@ -86,14 +87,10 @@ input {
         outline: none;
         transition: all .2s;
 
-        &:focus {
-            border: 1px solid #f0db4f;
-        }
+        &:focus { border: 1px solid #f0db4f; }
     }
 
-    &__button-add-task {
-        margin-left: 10px;
-    }
+    &__button-add-task { margin-left: 10px; }
 }
 
 .task {
@@ -109,23 +106,15 @@ input {
 
     &:hover {
         & > .task__button-edit:not(.checkbox),
-        & > .task__button-delete:not(.checkbox) {
-            opacity: 1;
-        }
+        & > .task__button-delete:not(.checkbox) { opacity: 1; }
     }
 
-    &__checkbox {
-        margin-right: .5rem;
-    }
+    &__checkbox { margin-right: .5rem; }
 
     &__title,
-    &__textfield {
-        margin-right: auto;
-    }
+    &__textfield { margin-right: auto; }
 
-    &__textfield {
-        display: none;
-    }
+    &__textfield { display: none; }
 
     &__button-edit,
     &__button-delete {
@@ -134,22 +123,14 @@ input {
     }
 
     &_completed {
-        & * {
-            color: lightgray;
-        }
+        & * { color: lightgray; }
         
-        & > .task__title {
-            text-decoration: line-through;
-        }
+        & > .task__title { text-decoration: line-through; }
     }
 
     &_editing {
-        & > .task__title {
-            display: none;
-        }
+        & > .task__title { display: none; }
 
-        & > .task__textfield {
-            display: block;
-        }
+        & > .task__textfield { display: block; }
     }
 }

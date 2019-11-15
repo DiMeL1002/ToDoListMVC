@@ -1,8 +1,8 @@
-import Model from './model'
-import View from './view'
-import Controller from './controller'
+import Model from './model';
+import View from './view';
+import Controller from './controller';
 
-import './main.scss'
+import './main.scss';
 import { save, load } from './helpers';
 
 const state = load();

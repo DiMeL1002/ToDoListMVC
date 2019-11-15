@@ -1,42 +1,34 @@
 const path = require('path');
 const fs = require('fs');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATH = {
     src: path.join(__dirname, './src'),
-    build: './build'
+    build: './build',
 }
 
-const COMMON_PAGES_DIR = `${PATH.src}/`
-const COMMON_PAGES = fs.readdirSync(COMMON_PAGES_DIR).filter(fileName => fileName.endsWith('.pug'))
+const COMMON_PAGES_DIR = `${PATH.src}/`;
+const COMMON_PAGES = fs.readdirSync(COMMON_PAGES_DIR).filter(fileName => fileName.endsWith('.pug'));
 
 module.exports = {
-    externals: {
-        path: PATH
-    },
+    externals: { path: PATH },
 
-    entry: { // точка входа
-        main: `${PATH.src}/main.js`
-    },
-    output: { // точка выхода
+    entry: { main: `${PATH.src}/main.js` },
+
+    output: {
         filename: 'js/[name].[hash].js',
-        path: path.resolve(__dirname, 'build'),  // указание абсолютного пути, __dirname - путь к текущей директории,
-        publicPath: "./"
+        path: path.resolve(__dirname, 'build'),
+        publicPath: "/",
     },
 
-    // devtool: 'source-map', // карты js
     module: {
         rules: [
             {
                 test: /\.pug$/,
                 loader: 'pug-loader',
-                options: {
-                    pretty: true
-                }
+                options: { pretty: true },
             },
             {
                 test: /\.css$/,
@@ -69,25 +61,22 @@ module.exports = {
                 ]
             },
             {
-                test: /\.m?js$/, // фильтрует файлы для обработки
-                exclude: /(node_modules|bower_components)/, // исключаем переработку данной папки
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader', // какой загрузчик необходимо использовать
+                    loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env'] //указываем, какой презет использовать
+                        presets: ['@babel/preset-env'],
                     }
                 }
             }
         ]
     },
 
-    plugins: [ // настройка плагинов
+    plugins: [
+        new CleanWebpackPlugin(),
 
-        // new CleanWebpackPlugin(),
-
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash].css'
-        }),
+        new MiniCssExtractPlugin({ filename: 'css/[name].[hash].css' }),
 
         ...COMMON_PAGES.map(page => new HtmlWebpackPlugin({
             template: `${COMMON_PAGES_DIR}/${page}`,
